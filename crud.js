@@ -11,18 +11,40 @@ var CRUD = {
         return onde
     },
 
+    adicionarFeito: function(array, bool, dia){
+        let feito = ''
+        if(bool){
+            feito = prompt(`O que fez a mais no dia ${dia}:`)
+            feito = feito.trim().toLocaleLowerCase().toString()
+            if(feito == 'acabou'){
+                
+                return false;
+            }else{
+                array[this.pesquisa(array, dia)].feitos.push(feito)
+
+                return true;
+            }
+        }else{
+            feito = prompt(`O que fez no dia ${dia}:`)
+            array.push({dia, feito});
+            
+            return true;
+        }
+    },
+
     add: function(array){
         console.clear()
         let dia = Number(prompt('Qual dia quer adicionar:'))
         if(dia > 14 && dia < 20){
-            let feito = ''
+            
             if (this.pesquisa(array, dia) >= 0) {
-                console.log("Dia já cadastrado, adicione mais informações");
-                feito += prompt(`O que fez a mais no dia ${dia}:`) 
-                array[this.pesquisa(array, dia)].feitos += feito
+                console.log("Dia já cadastrado, adicione mais informações\nOu 'ACABOU' para acabar o dia.");
+                let op
+                do {
+                    op = this.adicionarFeito(array, true, dia)
+                } while (op); 
             }else{
-                feito = prompt(`O que fez no dia ${dia}:`)
-                array.push({dia, feito});
+                this.adicionarFeito(array, false, dia)
             }
             return;
         }else{
