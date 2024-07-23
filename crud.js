@@ -11,8 +11,6 @@ var CRUD = {
         return onde
     },
 
-    
-
     add: function(array){
         console.clear()
         let dia = Number(prompt('Qual dia quer adicionar:'))
