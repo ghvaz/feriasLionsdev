@@ -1,5 +1,4 @@
 const prompt = require('prompt-sync')({sigint: true})
-const readline = require('readline')
 const crud = require('./crud.js')
 /*
 Faça um script de javascript que gerencia (CRUD) as atividades que o usuário fez nas férias, 

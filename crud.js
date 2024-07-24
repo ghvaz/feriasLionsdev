@@ -1,10 +1,10 @@
 const prompt = require('prompt-sync')({sigint: true})
 
 var CRUD = {
-    pesquisa: function(array, qual){
+    pesquisa: function(array, qualDia){
         let onde = -1
         array.forEach((element,index) => {
-            if(qual == element.dia){
+            if(qualDia == element.dia){
                 onde = index
             }
         });
@@ -75,11 +75,17 @@ var CRUD = {
     update: function(array, bool){
         CRUD.read(array, bool)
         let qual = +prompt('Qual dia quer alterar os feitos:')
+        console.clear()
         let index = CRUD.pesquisa(array,qual )
         if(index >= 0){
-            console.log(array[index].feitos+"\n------------------------------------------------------------------\nAlterando");
-            array[index].feitos = prompt('altere os feitos:')
-            prompt("Alterado com sucesso.")
+            console.log("\n------------------------------------------------------------------\nAlterando");
+            array[index].feitos.forEach((element,i) => {
+                console.log((i+1)+". "+element)
+            });
+            let updateFeito = prompt('Qual feito quer alterar:');
+            updateFeito -=1;
+            array[index].feitos[updateFeito] = prompt('Novo feito:');
+            prompt('Alterado com sucesso. Enter para retornar ao menu')
         }else{
             console.log(`Dia não encontrado.`);
             let op = prompt("Enter para tentar novamente ou sair para voltar ao menu.")
@@ -95,8 +101,8 @@ var CRUD = {
         let index = CRUD.pesquisa(array, qual)
 
         if(index >=0){
-            array.slpice(index, 1)
-            prompt('Deletado com sucesso. Enter para retornar ao menu')
+            array.splice(index, 1)
+            prompt('Dia deletado com sucesso. Enter para retornar ao menu')
         }else{
             console.log(`Dia não encontrado.`);
             let op = prompt("Enter para tentar novamente ou sair para voltar ao menu.")
